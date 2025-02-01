@@ -13,8 +13,5 @@ export class AuthService {
         return this.http.post(environment.loginUrl, reqData);
     }
 
-    getUserData(reqData: {guidId: string}): Observable<any> {
-        return this.http.post(environment.getUserInfoUrl, reqData);
-    }
 }
 1
