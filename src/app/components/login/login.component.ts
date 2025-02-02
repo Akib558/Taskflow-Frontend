@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
-import {HomepageComponent} from '../homepage/homepage/homepage.component';
 import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-login',
     imports: [FormsModule],
     templateUrl: './login.component.html',
-    standalone: true,
-    styleUrls: ['./login.component.scss']
+    styleUrls: ['./login.component.scss'],
+    standalone: true
 })
 export class LoginComponent {
     user = {
@@ -20,7 +19,7 @@ export class LoginComponent {
     constructor(private authService: AuthService, private router: Router) {
     }
 
-    onSubmit(){
+    onSubmit() {
         console.log("Submitting", this.user);
 
         this.authService.login(this.user).subscribe({

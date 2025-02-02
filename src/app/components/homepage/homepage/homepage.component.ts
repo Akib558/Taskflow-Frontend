@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { HomepageService} from '../../../services/homepage.service';
-import {AuthService} from '../../../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {HomepageService} from '../../../services/homepage.service';
+import {NavbarComponent} from '../../navbar/navbar.component';
+import {Router} from '@angular/router';
+import {HttpHeaders} from '@angular/common/http';
 
 interface User {
     id: number;
@@ -16,13 +18,15 @@ interface User {
     selector: 'app-homepage',
     templateUrl: './homepage.component.html',
     styleUrls: ['./homepage.component.scss'],
-    standalone: true,
+    imports: [NavbarComponent],
+    standalone: true
 })
 export class HomepageComponent implements OnInit {
 
     userInfo: Partial<User> = {};
 
-    constructor(private homepageService: HomepageService) {}
+    constructor(private homepageService: HomepageService, private router: Router) {
+    }
 
     ngOnInit(): void {
         this.getUserInfo();
@@ -30,17 +34,21 @@ export class HomepageComponent implements OnInit {
 
     getUserInfo() {
         let accessToken = localStorage.getItem('accessToken');
-        let guidId = localStorage.getItem('userGuidId')??"".toString();
+        let guidId = localStorage.getItem('userGuidId') ?? "".toString();
         let req = {
-            guidId : guidId
+            guidId: guidId
         };
-        this.homepageService.getUserData(req).subscribe({
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${accessToken}`, // Attach token
+        });
+
+        this.homepageService.getUserData(req, headers).subscribe({
             next: (response) => {
                 this.userInfo = response.Data;
                 console.log(this.userInfo);
             },
             error: (error) => {
-                console.log(error);
+                this.router.navigate(['login']);
             }
 
         });

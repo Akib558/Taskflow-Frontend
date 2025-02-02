@@ -10,8 +10,7 @@ export class HomepageService {
 
     constructor(private http: HttpClient) { }
 
-
-    getUserData(reqData: {guidId: string}): Observable<any> {
-        return this.http.post(environment.getUserInfoUrl, reqData);
+    getUserData(reqData: {guidId: string}, headers: any): Observable<any> {
+        return this.http.post(environment.getUserInfoUrl, reqData, {headers});
     }
 }
