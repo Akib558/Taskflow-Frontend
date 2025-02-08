@@ -1,13 +1,46 @@
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
+body {
+    display: flex;
 }
 
-@media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
+.vertical-navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #0052CC; /* Jira blue */
+    color: white;
+    padding-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.vertical-navbar .nav-link {
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.vertical-navbar .nav-link i {
+    margin-right: 10px;
+}
+
+.vertical-navbar .nav-link:hover {
+    background-color: #0747A6; /* Darker blue for hover */
+}
+
+.navbar-brand img {
+    width: 100px;
+    margin-left: 20px;
+}
+
+.content {
+    margin-left: 260px; /* Adjust according to navbar width */
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.dropdown-menu {
+    background-color: white;
+    color: black;
 }
