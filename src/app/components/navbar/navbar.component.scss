@@ -1,46 +1,38 @@
-body {
-    display: flex;
-}
-
 .vertical-navbar {
-    width: 250px;
+    width: 50px; // Adjust width as needed
     height: 100vh;
-    background-color: #0052CC; /* Jira blue */
+    background-color: #033b6f; // Blue accent like Jira
+    padding: 10px;
     color: white;
-    padding-top: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: width 0.3s;
-}
 
-.vertical-navbar .nav-link {
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-}
+    .nav-link {
+        display: flex;
+        align-items: center;
+        color: white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        padding: 8px;
+    }
 
-.vertical-navbar .nav-link i {
-    margin-right: 10px;
-}
+    .nav-link i {
+        font-size: 18px;
+        margin-right: 8px;
+    }
 
-.vertical-navbar .nav-link:hover {
-    background-color: #0747A6; /* Darker blue for hover */
-}
+    .navbar-brand img {
+        width: 40px; // Adjust logo size
+        height: auto;
+    }
 
-.navbar-brand img {
-    width: 100px;
-    margin-left: 20px;
-}
+    .dropdown-toggle::after {
+        display: none;
+    }
 
-.content {
-    margin-left: 260px; /* Adjust according to navbar width */
-    padding: 20px;
-    flex-grow: 1;
-}
-
-.dropdown-menu {
-    background-color: white;
-    color: black;
+    .mt-auto {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
