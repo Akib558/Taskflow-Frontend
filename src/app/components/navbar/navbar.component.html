@@ -1,3 +1,41 @@
+<!-- Modal -->
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="addnewtakLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addnewtakLabel">
+                    Add New Task
+                </h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="vertical-navbar d-flex flex-column">
     <ul class="nav flex-column mt-3">
         <li class="nav-item">
@@ -11,9 +49,15 @@
             ></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/team" title="New Issue"
-                ><i class="bi bi-plus-square"></i
-            ></a>
+            <a
+                role="button"
+                class="nav-link"
+                title="New Issue"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+            >
+                <i class="bi bi-plus-square"></i>
+            </a>
         </li>
     </ul>
 
