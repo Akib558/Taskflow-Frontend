@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {HomepageService} from '../../../services/homepage.service';
-import {NavbarComponent} from '../../navbar/navbar.component';
-import {Router} from '@angular/router';
-import {HttpHeaders} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HomepageService } from '../../../services/homepage.service';
+import { NavbarComponent } from '../../navbar/navbar.component';
+import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 interface User {
     id: number;
@@ -18,15 +19,16 @@ interface User {
     selector: 'app-homepage',
     templateUrl: './homepage.component.html',
     styleUrls: ['./homepage.component.scss'],
-    imports: [NavbarComponent],
-    standalone: true
+    imports: [NavbarComponent, SidebarComponent],
+    standalone: true,
 })
 export class HomepageComponent implements OnInit {
-
     userInfo: Partial<User> = {};
 
-    constructor(private homepageService: HomepageService, private router: Router) {
-    }
+    constructor(
+        private homepageService: HomepageService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this.getUserInfo();
@@ -34,9 +36,9 @@ export class HomepageComponent implements OnInit {
 
     getUserInfo() {
         let accessToken = localStorage.getItem('accessToken');
-        let guidId = localStorage.getItem('userGuidId') ?? "".toString();
+        let guidId = localStorage.getItem('userGuidId') ?? ''.toString();
         let req = {
-            guidId: guidId
+            guidId: guidId,
         };
         const headers = new HttpHeaders({
             Authorization: `Bearer ${accessToken}`, // Attach token
@@ -49,8 +51,7 @@ export class HomepageComponent implements OnInit {
             },
             error: (error) => {
                 this.router.navigate(['login']);
-            }
-
+            },
         });
     }
 }

@@ -36,3 +36,33 @@
         align-items: center;
     }
 }
+
+.container {
+    max-width: 500px;
+    background: #fff;
+}
+
+h3 {
+    font-weight: 600;
+    color: #333;
+}
+
+.btn-primary {
+    font-weight: bold;
+}
+
+.form-control,
+.form-select {
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.shadow {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-check-input:checked {
+    background-color: white !important;
+    border-color: black !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23000'/%3e%3c/svg%3e") !important;
+}

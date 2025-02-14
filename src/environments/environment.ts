@@ -5,4 +5,5 @@ export const environment = {
     baseUrl,
     loginUrl: `${baseUrl}/api/Auth/login`,
     getUserInfoUrl: `${baseUrl}/api/User/GetUserById`,
+    addTask: `${baseUrl}/api/Task/AddTask`,
 };
