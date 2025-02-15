@@ -4,6 +4,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { KanbanBoardComponent } from '../../kanban-board/kanban-board.component';
 
 interface User {
     id: number;
@@ -19,7 +20,7 @@ interface User {
     selector: 'app-homepage',
     templateUrl: './homepage.component.html',
     styleUrls: ['./homepage.component.scss'],
-    imports: [NavbarComponent, SidebarComponent],
+    imports: [NavbarComponent, SidebarComponent, KanbanBoardComponent],
     standalone: true,
 })
 export class HomepageComponent implements OnInit {

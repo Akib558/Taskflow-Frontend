@@ -1,0 +1,45 @@
+<div class="container">
+    <!-- To Do Section -->
+    <div class="section">
+        <h2 class="section-title">To Do</h2>
+        <div
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="todo"
+            [cdkDropListConnectedTo]="[doneList]"
+            class="task-list"
+            (cdkDropListDropped)="drop($event)"
+        >
+            @for (item of todo; track item) {
+            <div class="task-item" cdkDrag>
+                <mat-icon class="drag-handle" cdkDragHandle
+                    >drag_indicator</mat-icon
+                >
+                <span class="task-text">{{ item }}</span>
+            </div>
+            }
+        </div>
+    </div>
+
+    <!-- Done Section -->
+    <div class="section">
+        <h2 class="section-title">Done</h2>
+        <div
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="[todoList]"
+            class="task-list"
+            (cdkDropListDropped)="drop($event)"
+        >
+            @for (item of done; track item) {
+            <div class="task-item" cdkDrag>
+                <mat-icon class="drag-handle" cdkDragHandle
+                    >drag_indicator</mat-icon
+                >
+                <span class="task-text">{{ item }}</span>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: white;
+    border-right: 1px solid #ddd;
+}
+
+.nav-link {
+    color: black;
+    text-align: left;
+    &:hover {
+        background-color: #f8f9fa;
+    }
+}
+
+.nav-link.active {
+    background-color: black;
+    color: white;
+}
