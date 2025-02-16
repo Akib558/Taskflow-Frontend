@@ -1,5 +1,13 @@
-<div style="display: flex">
+<div style="display: flex; height: 100vh">
     <app-navbar></app-navbar>
-    <app-sidebar></app-sidebar>
-    <app-kanban-board></app-kanban-board>
+
+    <!-- Sidebar should take fixed width -->
+    <app-sidebar style="flex: 0 0 250px"></app-sidebar>
+    <!-- Adjust the width as needed -->
+
+    <!-- Kanban should take remaining space -->
+    <div style="flex: 1; overflow: auto">
+        <router-outlet></router-outlet>
+        <!-- Kanban content will render here -->
+    </div>
 </div>
