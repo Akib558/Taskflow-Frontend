@@ -1,34 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
     CdkDragDrop,
+    DragDropModule,
     moveItemInArray,
     transferArrayItem,
-    CdkDrag,
-    CdkDropList,
 } from '@angular/cdk/drag-drop';
-import { MatIconModule } from '@angular/material/icon';
+import {
+    IGetTaskForUser,
+    ITaskDetails,
+} from '../../interfaces/task/task.model';
+import { TaskService } from '../../services/task.service';
 
-/**
- * @title Drag&Drop connected sorting
- */
 @Component({
     selector: 'app-kanban-board',
     templateUrl: './kanban-board.component.html',
     styleUrls: ['./kanban-board.component.scss'],
-    imports: [CdkDropList, CdkDrag, MatIconModule],
+    imports: [DragDropModule],
 })
-export class KanbanBoardComponent {
-    todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+export class KanbanBoardComponent implements OnInit {
+    todo: ITaskDetails[] = [];
+    inProgress: ITaskDetails[] = [];
+    done: ITaskDetails[] = [];
 
-    done = [
-        'Get up',
-        'Brush teeth',
-        'Take a shower',
-        'Check e-mail',
-        'Walk dog',
-    ];
+    constructor(private taskService: TaskService) {}
 
-    drop(event: CdkDragDrop<string[]>) {
+    ngOnInit() {
+        this.getTasks();
+    }
+
+    getTasks() {
+        const requestPayload: IGetTaskForUser = {
+            userGuidId: localStorage.getItem('userGuidId') ?? '',
+        }; // Replace with actual user ID
+        this.taskService
+            .getAllTaskForUser(requestPayload)
+            .subscribe((response) => {
+                if (response.Success) {
+                    response.Data.forEach((task: ITaskDetails) => {
+                        if (task.taskStatus === 'todo') {
+                            this.todo.push(task);
+                        } else if (task.taskStatus === 'in-progress') {
+                            this.inProgress.push(task);
+                        } else {
+                            this.done.push(task);
+                        }
+                    });
+                }
+            });
+    }
+
+    drop(event: CdkDragDrop<ITaskDetails[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(
                 event.container.data,

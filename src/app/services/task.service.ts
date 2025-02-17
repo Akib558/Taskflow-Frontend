@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ITask } from '../interfaces/task/task.model';
+import { IGetTaskForUser, ITask } from '../interfaces/task/task.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,5 +12,9 @@ export class TaskService {
 
     addTask(taskData: ITask): Observable<any> {
         return this.http.post(environment.addTask, taskData);
+    }
+
+    getAllTaskForUser(getTaskReqObj: IGetTaskForUser): Observable<any> {
+        return this.http.post(environment.getAllTask, getTaskReqObj);
     }
 }

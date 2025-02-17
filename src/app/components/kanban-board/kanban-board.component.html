@@ -6,16 +6,38 @@
             cdkDropList
             #todoList="cdkDropList"
             [cdkDropListData]="todo"
-            [cdkDropListConnectedTo]="[doneList]"
+            [cdkDropListConnectedTo]="[inProgressList, doneList]"
             class="task-list"
             (cdkDropListDropped)="drop($event)"
         >
-            @for (item of todo; track item) {
+            @for (task of todo; track task) {
             <div class="task-item" cdkDrag>
                 <mat-icon class="drag-handle" cdkDragHandle
                     >drag_indicator</mat-icon
                 >
-                <span class="task-text">{{ item }}</span>
+                <span class="task-text">{{ task.taskTitle }}</span>
+            </div>
+            }
+        </div>
+    </div>
+
+    <!-- In Progress Section -->
+    <div class="section">
+        <h2 class="section-title">In Progress</h2>
+        <div
+            cdkDropList
+            #inProgressList="cdkDropList"
+            [cdkDropListData]="inProgress"
+            [cdkDropListConnectedTo]="[todoList, doneList]"
+            class="task-list"
+            (cdkDropListDropped)="drop($event)"
+        >
+            @for (task of inProgress; track task) {
+            <div class="task-item" cdkDrag>
+                <mat-icon class="drag-handle" cdkDragHandle
+                    >drag_indicator</mat-icon
+                >
+                <span class="task-text">{{ task.taskTitle }}</span>
             </div>
             }
         </div>
@@ -28,16 +50,16 @@
             cdkDropList
             #doneList="cdkDropList"
             [cdkDropListData]="done"
-            [cdkDropListConnectedTo]="[todoList]"
+            [cdkDropListConnectedTo]="[todoList, inProgressList]"
             class="task-list"
             (cdkDropListDropped)="drop($event)"
         >
-            @for (item of done; track item) {
+            @for (task of done; track task) {
             <div class="task-item" cdkDrag>
                 <mat-icon class="drag-handle" cdkDragHandle
                     >drag_indicator</mat-icon
                 >
-                <span class="task-text">{{ item }}</span>
+                <span class="task-text">{{ task.taskTitle }}</span>
             </div>
             }
         </div>

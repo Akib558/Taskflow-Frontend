@@ -5,6 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/homepage/sidebar/sidebar.component';
 import { KanbanBoardComponent } from './components/kanban-board/kanban-board.component';
 import { HomepageComponent } from './components/homepage/homepage/homepage.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @Component({
     selector: 'app-root',
@@ -14,6 +15,7 @@ import { HomepageComponent } from './components/homepage/homepage/homepage.compo
         SidebarComponent,
         KanbanBoardComponent,
         HomepageComponent,
+        LayoutComponent,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',

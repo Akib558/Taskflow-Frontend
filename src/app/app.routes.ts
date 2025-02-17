@@ -9,12 +9,10 @@ export const routes: Routes = [
 
     {
         path: 'home',
-        component: HomepageComponent, // Homepage as parent to contain sidebar
-        children: [
-            { path: '', redirectTo: 'kanban', pathMatch: 'full' }, // Default to kanban if 'home'
-            { path: 'kanban', component: KanbanBoardComponent }, // Kanban inside homepage
-        ],
+        component: HomepageComponent,
     },
-
-    { path: 'kanban', redirectTo: 'home/kanban', pathMatch: 'full' }, // Redirect from '/kanban' to '/home/kanban'
+    {
+        path: 'kanban',
+        component: KanbanBoardComponent,
+    },
 ];
