@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { KanbanBoardComponent } from '../../kanban-board/kanban-board.component';
+import { TaskComponent } from '../../task/task.component';
 
 interface User {
     id: number;
@@ -25,6 +26,7 @@ interface User {
         SidebarComponent,
         KanbanBoardComponent,
         RouterModule,
+        TaskComponent,
     ],
     standalone: true,
 })
