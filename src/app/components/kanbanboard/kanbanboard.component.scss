@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  background-color: #f8f9fa; // Light subtle background
+  min-height: 100vh;
+}
+
+.section {
+  flex: 1;
+  max-width: 320px;
+}
+
+.section-title {
+  font-weight: 600;
+  margin: 0 0 16px 8px; // Align with list padding
+  color: #000;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.task-list {
+  min-height: 60vh;
+  max-height: 80vh;
+  border: 2px solid #000;
+  border-radius: 10px; // Increased rounding
+  padding: 12px;
+  background-color: #fff;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 4px;
+  }
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  margin-bottom: 8px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px; // Matching rounded corners
+  color: #000;
+  cursor: move;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+
+  &:hover {
+    border-color: #000;
+    transform: translateX(2px);
+  }
+
+  &.cdk-drag-preview {
+    border-radius: 6px; // Consistent rounding
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: #000;
+  }
+
+  &.cdk-drag-placeholder {
+    opacity: 0.4;
+  }
+}
+
+.drag-handle {
+  color: #000;
+  opacity: 0.3;
+  margin-right: 14px;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,232 @@
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4 border-0 rounded-3 bg-white text-dark">
+      <h3 class="mb-3 text-center fw-bold text-dark">Create Task</h3>
+
+      <form
+        [formGroup]="taskForm"
+        (ngSubmit)="onSubmit()"
+        class="d-flex flex-column gap-3"
+      >
+        <!-- Task Type Selection -->
+        <div class="d-flex gap-3">
+          <div class="form-check">
+            <input
+              class="form-check-input bg-white border-dark text-dark"
+              type="radio"
+              formControlName="taskType"
+              value="parent"
+            />
+            <label class="form-check-label text-dark">Parent Task</label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input bg-white border-dark text-dark"
+              type="radio"
+              formControlName="taskType"
+              value="sub"
+            />
+            <label class="form-check-label text-dark">Sub Task</label>
+          </div>
+        </div>
+
+        <!-- Parent Task ID -->
+        <div *ngIf="isSubTask">
+          <label class="form-label text-dark">Parent Task Name</label>
+          <input
+            type="number"
+            class="form-control bg-white text-dark border-dark"
+            formControlName="taskParentId"
+            placeholder="Enter Parent Task ID"
+          />
+        </div>
+
+        <!-- Task Title -->
+        <div>
+          <label class="form-label text-dark">Task Title *</label>
+          <input
+            type="text"
+            class="form-control bg-white text-dark border-dark"
+            formControlName="taskTitle"
+            placeholder="Enter Task Title"
+          />
+          <small
+            class="text-danger"
+            *ngIf="
+              taskForm.get('taskTitle')?.invalid &&
+              taskForm.get('taskTitle')?.touched
+            "
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <!-- Task Description -->
+        <div>
+          <label class="form-label text-dark">Task Description *</label>
+          <textarea
+            class="form-control bg-white text-dark border-dark"
+            formControlName="taskDescription"
+            rows="3"
+            placeholder="Enter Task Description"
+          ></textarea>
+          <small
+            class="text-danger"
+            *ngIf="
+              taskForm.get('taskDescription')?.invalid &&
+              taskForm.get('taskDescription')?.touched
+            "
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <!-- Status, Category, Priority -->
+        <div class="d-flex gap-3">
+          <div class="w-100">
+            <label class="form-label text-dark">Status</label>
+            <select
+              class="form-select bg-white text-dark border-dark"
+              formControlName="taskStatus"
+            >
+              <option value="">Select</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+
+          <div class="w-100">
+            <label class="form-label text-dark">Type</label>
+            <select
+              class="form-select bg-white text-dark border-dark"
+              formControlName="taskTypeCategory"
+            >
+              <option value="">Select</option>
+              <option value="Feature">Feature</option>
+              <option value="Bug">Bug</option>
+              <option value="Improvement">Improvement</option>
+            </select>
+          </div>
+
+          <div class="w-100">
+            <label class="form-label text-dark">Priority</label>
+            <select
+              class="form-select bg-white text-dark border-dark"
+              formControlName="taskPriority"
+            >
+              <option value="">Select</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-dark w-100 mt-2"
+          [disabled]="taskForm.invalid"
+          data-bs-dismiss="modal"
+        >
+          Submit Task
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark"
+          data-bs-dismiss="modal"
+          (click)="resetForm()"
+        >
+          Close
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<nav
+  class="d-flex flex-column align-items-center bg-black border-end vh-100 py-3 shadow-sm"
+  style="width: 45px"
+>
+  <!-- Top Icons -->
+  <ul class="nav flex-column text-center">
+    <li class="nav-item mb-3">
+      <a
+        class="nav-link text-white p-2"
+        routerLink="/projects"
+        title="Dashboard"
+      >
+        <i class="bi bi-menu-button-wide fs-5"></i>
+      </a>
+    </li>
+    <li class="nav-item mb-3">
+      <a class="nav-link text-white p-2" routerLink="/dashboard" title="Search">
+        <i class="bi bi-search fs-5"></i>
+      </a>
+    </li>
+    <li class="nav-item mb-3">
+      <a
+        class="nav-link text-white p-2"
+        role="button"
+        title="New Issue"
+        data-bs-toggle="modal"
+        data-bs-backdrop="static"
+        data-bs-target="#exampleModal"
+      >
+        <i class="bi bi-plus-square fs-5"></i>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Bottom Icons -->
+  <div class="mt-auto d-flex flex-column align-items-center pb-3">
+    <!-- Notifications -->
+    <div class="dropdown mb-3">
+      <a
+        class="nav-link text-white p-2 dropdown-toggle"
+        data-bs-toggle="dropdown"
+        href="#"
+        id="notificationsDropdown"
+        title="Notifications"
+      >
+        <i class="bi bi-bell fs-5"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+        <li><a class="dropdown-item" href="#">Some news</a></li>
+        <li><a class="dropdown-item" href="#">Another news</a></li>
+        <li><a class="dropdown-item" href="#">Something else</a></li>
+      </ul>
+    </div>
+
+    <!-- Profile -->
+    <div class="dropdown">
+      <a
+        class="nav-link p-2 d-flex align-items-center"
+        data-bs-toggle="dropdown"
+        href="#"
+        id="profileDropdown"
+      >
+        <img
+          alt="Avatar"
+          class="rounded-circle border border-white"
+          height="30"
+          width="30"
+          src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+        />
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
