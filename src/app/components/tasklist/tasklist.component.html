@@ -1,0 +1,25 @@
+<ng-template #taskTemplate let-task>
+  <div class="task-item">
+    <div class="task-content">
+      <div class="task-heading">{{ task.title }}</div>
+      <div class="task-description">{{ task.description }}</div>
+      <div class="task-footer">
+        <span class="task-status">Status: {{ task.status }}</span>
+        <span class="task-metadata">Created: {{ task.createdAt }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngFor="let task of tasks">
+  <div class="task-item">
+    <div class="task-content">
+      <div class="task-heading">{{ task.taskTitle }}</div>
+      <div class="task-description">{{ task.taskDescription }}</div>
+      <div class="task-footer">
+        <span class="task-status">Status: {{ task.taskStatus }}</span>
+        <span class="task-metadata">Created: {{ task.taskCreatedDate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

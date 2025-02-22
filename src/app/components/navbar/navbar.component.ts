@@ -58,6 +58,8 @@ export class NavbarComponent {
         next: (response) => {
           console.log(response);
           this.resetForm();
+          //reload window
+          window.location.reload();
         },
         error: (error) => {
           console.log(error);
