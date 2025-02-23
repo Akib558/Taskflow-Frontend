@@ -1,14 +1,20 @@
-.container {
+.container-kanban {
   display: flex;
   gap: 24px;
   padding: 24px;
+  padding-top: 100px;
+  // padding-left: 30px;
+  // margin: 0px;
   background-color: #f8f9fa; // Light subtle background
-  min-height: 100vh;
+  // min-height: 100vh;
 }
 
 .section {
   flex: 1;
   max-width: 320px;
+  height: 80vh;
+  // padding: 40px;
+  // background-color: red;
 }
 
 .section-title {
@@ -21,7 +27,7 @@
 }
 
 .task-list {
-  min-height: 60vh;
+  min-height: 70vh;
   max-height: 80vh;
   border: 2px solid #000;
   border-radius: 10px; // Increased rounding

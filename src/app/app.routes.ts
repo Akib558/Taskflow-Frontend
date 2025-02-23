@@ -5,8 +5,8 @@ import { TasklistComponent } from './components/tasklist/tasklist.component';
 
 export const routes: Routes = [
   // ✅ Added 'export'
-  { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirect to home
-  { path: 'home', component: HomepageComponent },
+  { path: '', redirectTo: 'kanban', pathMatch: 'full' }, // Redirect to home
+  // { path: 'home', component: KanbanBoardComponent },
   { path: 'kanban', component: KanbanBoardComponent },
   {
     path: 'tasks',

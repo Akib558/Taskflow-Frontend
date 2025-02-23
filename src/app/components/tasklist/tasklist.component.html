@@ -11,8 +11,161 @@
   </div>
 </ng-template>
 
+<div>
+  <table class="table w-100">
+    <!-- First Row: Kanban Board Heading & Buttons -->
+    <tr>
+      <td>
+        <h4>Tasklist</h4>
+      </td>
+      <td class="text-end">
+        <button mat-raised-button color="primary">Add Task</button>
+        <button mat-raised-button color="primary">Add Task</button>
+        <button mat-raised-button color="primary">Add Task</button>
+      </td>
+    </tr>
+
+    <!-- Second Row: Search Box & Buttons -->
+    <tr>
+      <td colspan="2">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- Search Box -->
+          <input
+            type="text"
+            class="form-control w-50"
+            placeholder="Search..."
+          />
+
+          <!-- Buttons -->
+          <div class="d-flex gap-2">
+            <button class="btn btn-secondary text-dark">My Issues</button>
+            <button class="btn btn-secondary text-dark">Hide Solved</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Modal -->
+<!-- Modal -->
+<ng-template #taskDetailsModal let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title fs-5" id="exampleModalLabel">
+      {{ editedTask.taskTitle }}
+    </h1>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <!-- Task Title -->
+    <div class="mb-3">
+      <label for="taskTitle" class="form-label">Task Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="taskTitle"
+        [(ngModel)]="editedTask.taskTitle"
+        placeholder="Enter task title"
+      />
+    </div>
+
+    <!-- Task Description -->
+    <div class="mb-3">
+      <label for="taskDescription" class="form-label">Task Description</label>
+      <textarea
+        class="form-control"
+        id="taskDescription"
+        [(ngModel)]="editedTask.taskDescription"
+        placeholder="Enter task description"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <!-- Task Status -->
+    <div class="mb-3">
+      <label for="taskStatus" class="form-label">Task Status</label>
+      <select
+        class="form-select"
+        id="taskStatus"
+        [(ngModel)]="editedTask.taskStatus"
+      >
+        <option value="To Do">To Do</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Done">Done</option>
+      </select>
+    </div>
+
+    <!-- Task Priority -->
+    <div class="mb-3">
+      <label for="taskPriority" class="form-label">Task Priority</label>
+      <select
+        class="form-select"
+        id="taskPriority"
+        [(ngModel)]="editedTask.taskPriority"
+      >
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+    </div>
+
+    <!-- Task Due Date -->
+    <div class="mb-3">
+      <label for="taskDueDate" class="form-label">Task Due Date</label>
+      <input
+        type="date"
+        class="form-control"
+        id="taskDueDate"
+        [(ngModel)]="editedTask.taskDueDate"
+      />
+    </div>
+
+    <!-- Task Created Date (Read-only) -->
+    <div class="mb-3">
+      <label for="taskCreatedDate" class="form-label">Task Created Date</label>
+      <input
+        type="text"
+        class="form-control"
+        id="taskCreatedDate"
+        [(ngModel)]="editedTask.taskCreatedDate"
+        readonly
+      />
+    </div>
+
+    <!-- Task Updated Date (Read-only) -->
+    <div class="mb-3">
+      <label for="taskUpdatedDate" class="form-label">Task Updated Date</label>
+      <input
+        type="text"
+        class="form-control"
+        id="taskUpdatedDate"
+        [(ngModel)]="editedTask.taskUpdatedDate"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+    <button type="button" class="btn btn-primary" (click)="saveChanges()">
+      Save changes
+    </button>
+  </div>
+</ng-template>
+
+<!-- Task List -->
 <div *ngFor="let task of tasks">
-  <div class="task-item">
+  <div class="task-item" (click)="openTaskDetailsModal(task, taskDetailsModal)">
     <div class="task-content">
       <div class="task-heading">{{ task.taskTitle }}</div>
       <div class="task-description">{{ task.taskDescription }}</div>
