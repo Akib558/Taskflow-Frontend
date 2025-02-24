@@ -14,6 +14,9 @@ export class TaskService {
   addTask(taskData: ITask): Observable<any> {
     return this.http.post(environment.addTask, taskData);
   }
+  updateTask(taskData: ITask): Observable<any> {
+    return this.http.post(environment.updateTask, taskData);
+  }
 
   getAllTaskForUser(getTaskReqObj: IGetTaskForUser): Observable<any> {
     return this.http.post(environment.getAllTask, getTaskReqObj);

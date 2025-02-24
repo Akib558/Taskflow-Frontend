@@ -58,6 +58,11 @@ export class TasklistComponent implements OnInit {
 
   saveChanges() {
     console.log(this.editedTask);
+    this.taskService.updateTask(this.editedTask).subscribe((response) => {
+      if (response.Success) {
+        this.getTasks();
+      }
+    });
   }
   deleteTask() {
     console.log(this.editedTask);
