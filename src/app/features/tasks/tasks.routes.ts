@@ -6,7 +6,7 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
 
 export const TASK_ROUTES: Routes = [
   {
-    path: 'task',
+    path: '',
     pathMatch: 'full',
     component: TaskListComponent,
   },
