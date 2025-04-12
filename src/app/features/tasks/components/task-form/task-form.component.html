@@ -1,0 +1,139 @@
+<div class="container py-5">
+    <h2 class="mb-4 fw-bold text-center">Create a New Task</h2>
+
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="row g-4">
+        <!-- Task Type -->
+        <div class="col-12">
+            <label class="form-label fw-semibold">Task Type</label>
+            <div class="d-flex gap-4">
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="taskType"
+                        value="parent"
+                        id="taskTypeParent"
+                    />
+                    <label class="form-check-label" for="taskTypeParent">
+                        Parent Task
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="taskType"
+                        value="sub"
+                        id="taskTypeSub"
+                    />
+                    <label class="form-check-label" for="taskTypeSub">
+                        Sub Task
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parent ID -->
+        <div class="col-md-6" *ngIf="isSubTask">
+            <label class="form-label" for="parentId">Parent Task ID</label>
+            <input
+                type="number"
+                class="form-control"
+                id="parentId"
+                placeholder="Enter Parent Task ID"
+                formControlName="taskParentId"
+                min="1"
+            />
+        </div>
+
+        <!-- Task Title -->
+        <div class="col-md-6">
+            <label class="form-label">Task Title *</label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="taskTitle"
+                placeholder="Enter Task Title"
+            />
+            <small
+                class="text-danger"
+                *ngIf="
+                    taskForm.get('taskTitle')?.invalid &&
+                    taskForm.get('taskTitle')?.touched
+                "
+            >
+                Task title is required.
+            </small>
+        </div>
+
+        <!-- Task Description -->
+        <div class="col-12">
+            <label class="form-label">Task Description *</label>
+            <textarea
+                class="form-control"
+                rows="4"
+                formControlName="taskDescription"
+                placeholder="Enter task details"
+            ></textarea>
+            <small
+                class="text-danger"
+                *ngIf="
+                    taskForm.get('taskDescription')?.invalid &&
+                    taskForm.get('taskDescription')?.touched
+                "
+            >
+                Task description is required.
+            </small>
+        </div>
+
+        <!-- Metadata -->
+        <div class="col-md-4">
+            <label class="form-label">Status</label>
+            <select class="form-select" formControlName="taskStatus">
+                <option value="">Select Status</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Type</label>
+            <select class="form-select" formControlName="taskTypeCategory">
+                <option value="">Select Type</option>
+                <option value="Feature">Feature</option>
+                <option value="Bug">Bug</option>
+                <option value="Improvement">Improvement</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Priority</label>
+            <select class="form-select" formControlName="taskPriority">
+                <option value="">Select Priority</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+            </select>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="col-12 d-flex justify-content-end gap-3 pt-3">
+            <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="resetForm()"
+            >
+                Reset
+            </button>
+            <button
+                type="submit"
+                class="btn btn-dark"
+                [disabled]="taskForm.invalid"
+            >
+                Submit Task
+            </button>
+        </div>
+    </form>
+</div>
