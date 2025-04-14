@@ -4,26 +4,28 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class ApiService {
     private baseUrl = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     // Generic GET request
     get<T>(endpoint: string, params?: any): Observable<T> {
         const httpParams = this.createHttpParams(params);
         return this.http
-            .get<T>(`${this.baseUrl}/${endpoint}`, { params: httpParams })
+            .get<T>(`${this.baseUrl}${endpoint}`, { params: httpParams })
             .pipe(catchError(this.handleError));
     }
 
     // Generic POST request
     post<T>(endpoint: string, body: any): Observable<T> {
         return this.http
-            .post<T>(`${this.baseUrl}/${endpoint}`, body, {
+            .post<T>(`${this.baseUrl}${endpoint}`, body, {
                 headers: this.getHeaders(),
+                withCredentials: true
             })
             .pipe(catchError(this.handleError));
     }
@@ -31,8 +33,16 @@ export class ApiService {
     // Generic PUT request
     put<T>(endpoint: string, body: any): Observable<T> {
         return this.http
-            .put<T>(`${this.baseUrl}/${endpoint}`, body, {
-                headers: this.getHeaders(),
+            .put<T>(`${this.baseUrl}${endpoint}`, body, {
+                headers: this.getHeaders()
+            })
+            .pipe(catchError(this.handleError));
+    }
+
+    patch<T>(endpoint: string, body: any): Observable<T> {
+        return this.http
+            .patch<T>(`${this.baseUrl}${endpoint}`, body, {
+                headers: this.getHeaders()
             })
             .pipe(catchError(this.handleError));
     }
@@ -40,8 +50,8 @@ export class ApiService {
     // Generic DELETE request
     delete<T>(endpoint: string): Observable<T> {
         return this.http
-            .delete<T>(`${this.baseUrl}/${endpoint}`, {
-                headers: this.getHeaders(),
+            .delete<T>(`${this.baseUrl}${endpoint}`, {
+                headers: this.getHeaders()
             })
             .pipe(catchError(this.handleError));
     }
@@ -61,7 +71,7 @@ export class ApiService {
     private getHeaders(): HttpHeaders {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            Accept: 'application/json',
+            Accept: 'application/json'
         });
 
         // Add auth token if available
@@ -95,13 +105,5 @@ export class ApiService {
         }
         console.error(errorMessage);
         return throwError(() => new Error(errorMessage));
-    }
-
-    patch<T>(endpoint: string, body: any): Observable<T> {
-        return this.http
-            .patch<T>(`${this.baseUrl}/${endpoint}`, body, {
-                headers: this.getHeaders(),
-            })
-            .pipe(catchError(this.handleError));
     }
 }

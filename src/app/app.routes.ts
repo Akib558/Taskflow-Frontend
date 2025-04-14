@@ -9,52 +9,37 @@ import { TaskFormComponent } from './features/tasks/components/task-form/task-fo
 import { AuthGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'home', //working
-    pathMatch: 'full',
-  },
-  {
-    path: '',
-    component: AuthLayoutComponent,
-    children: [
-      // working
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-    ],
-  },
-  {
-    path: '',
-    component: MainLayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'home', // working
-        component: HomeComponent,
-      },
-      {
-        path: 'tasks',
-        loadChildren: () =>
-          import('./features/tasks/tasks.routes').then((m) => m.TASK_ROUTES),
-      },
-    ],
-  },
-  // {
-  //   path: 'tasks',
-  //   component: MainLayoutComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       pathMatch: 'full',
-  //       component: TaskListComponent,
-  //     },
-  //     {
-  //       path: 'new',
-  //       pathMatch: 'full',
-  //       component: TaskFormComponent,
-  //     },
-  //   ],
-  // },
-
-  { path: '**', redirectTo: 'home' },
+    {
+        path: '',
+        redirectTo: 'home', //working
+        pathMatch: 'full',
+    },
+    {
+        path: '',
+        component: AuthLayoutComponent,
+        children: [
+            // working
+            { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
+        ],
+    },
+    {
+        path: '',
+        component: MainLayoutComponent,
+        canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'home', // working
+                component: HomeComponent,
+            },
+            {
+                path: 'tasks',
+                loadChildren: () =>
+                    import('./features/tasks/tasks.routes').then(
+                        (m) => m.TASK_ROUTES
+                    ),
+            },
+        ],
+    },
+    { path: '**', redirectTo: 'home' },
 ];
