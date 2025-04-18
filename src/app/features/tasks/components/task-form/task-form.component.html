@@ -10,11 +10,11 @@
                     <input
                         class="form-check-input"
                         type="radio"
-                        formControlName="taskType"
+                        formControlName="taskCategory"
                         value="parent"
-                        id="taskTypeParent"
+                        id="taskParent"
                     />
-                    <label class="form-check-label" for="taskTypeParent">
+                    <label class="form-check-label" for="taskParent">
                         Parent Task
                     </label>
                 </div>
@@ -22,7 +22,7 @@
                     <input
                         class="form-check-input"
                         type="radio"
-                        formControlName="taskType"
+                        formControlName="taskCategory"
                         value="sub"
                         id="taskTypeSub"
                     />
@@ -86,35 +86,36 @@
             </small>
         </div>
 
-        <!-- Metadata -->
+        <!-- Status -->
         <div class="col-md-4">
             <label class="form-label">Status</label>
             <select class="form-select" formControlName="taskStatus">
-                <option value="">Select Status</option>
-                <option value="Pending">Pending</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
+                <option value="" [ngValue]="taskStatus.at(0)">Select Status</option>
+                <option *ngFor="let status of taskStatus" [value]="status.id">
+                    {{ status.status }}
+                </option>
             </select>
         </div>
 
+        <!-- Type -->
         <div class="col-md-4">
             <label class="form-label">Type</label>
-            <select class="form-select" formControlName="taskTypeCategory">
+            <select class="form-select" formControlName="taskType">
                 <option value="">Select Type</option>
-                <option value="Feature">Feature</option>
-                <option value="Bug">Bug</option>
-                <option value="Improvement">Improvement</option>
+                <option *ngFor="let type of taskType" [value]="type.id">
+                    {{ type.type }}
+                </option>
             </select>
         </div>
 
+        <!-- Priority -->
         <div class="col-md-4">
             <label class="form-label">Priority</label>
             <select class="form-select" formControlName="taskPriority">
                 <option value="">Select Priority</option>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-                <option value="Critical">Critical</option>
+                <option *ngFor="let priority of taskPriority" [value]="priority.id">
+                    {{ priority.priority }}
+                </option>
             </select>
         </div>
 

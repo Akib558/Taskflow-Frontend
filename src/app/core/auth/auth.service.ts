@@ -21,9 +21,9 @@ export class AuthService {
             .subscribe({
                 next: (response: any) => {
                     console.log('Login response:', response);
-                    if (response.Success) {
+                    if (response.success) {
                         this.isAuthenticated = true;
-                        localStorage.setItem('auth_token', response.Data.token.accessToken);
+                        localStorage.setItem('auth_token', response.data.token.accessToken);
                         localStorage.setItem('isLoggedIn', 'true');
                         this.router.navigate(['/home']);
                     } else {

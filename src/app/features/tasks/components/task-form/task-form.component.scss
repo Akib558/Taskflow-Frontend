@@ -1,0 +1,35 @@
+/* Custom styles for the black and white theme */
+.card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.form-control, .ng-select .ng-select-container {
+    background-color: #fff;
+    border-color: #212529;
+    color: #212529;
+}
+
+.btn-outline-dark {
+    border-color: #212529;
+    color: #212529;
+}
+
+.btn-outline-dark:hover {
+    background-color: #212529;
+    color: #fff;
+}
+
+.btn-dark {
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.btn-dark:hover {
+    background-color: #000;
+    border-color: #000;
+}
+
+.invalid-feedback {
+    font-size: 0.875rem;
+}

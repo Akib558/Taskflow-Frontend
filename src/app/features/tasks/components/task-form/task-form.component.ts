@@ -1,101 +1,115 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
+    FormBuilder,
+    FormGroup, FormsModule,
+    ReactiveFormsModule,
+    Validators
 } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-task-form',
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './task-form.component.html',
-  styleUrl: './task-form.component.scss',
+    selector: 'app-task-form',
+    imports: [ReactiveFormsModule, CommonModule, FormsModule],
+    templateUrl: './task-form.component.html',
+    styleUrl: './task-form.component.scss'
 })
 export class TaskFormComponent implements OnInit {
-  taskForm!: FormGroup;
-  isSubTask: boolean = false;
+    taskForm!: FormGroup;
+    isSubTask: boolean = false;
+    taskStatus = [
+        { id: 0, status: 'Pending' },
+        { id: 1, status: 'InProgress' },
+        { id: 2, status: 'Completed' }
+    ];
 
-  constructor(private fb: FormBuilder, private taskService: TaskService) {}
+    taskType = [
+        { id: 0, type: 'Bug' },
+        { id: 1, type: 'Note' },
+        { id: 2, type: 'Feature' }
+    ];
 
-  ngOnInit(): void {
-    this.initForm();
-    this.handleTaskTypeChange();
-  }
+    taskPriority = [
+        { id: 0, priority: 'High' },
+        { id: 1, priority: 'Medium' },
+        { id: 2, priority: 'Low' },
+        { id: 3, priority: 'Urgent' }
+    ];
 
-  private initForm(): void {
-    this.taskForm = this.fb.group({
-      taskType: ['parent', Validators.required],
-      taskParentId: [null],
-      taskTitle: ['', Validators.required],
-      taskDescription: ['', Validators.required],
-      taskStatus: [''],
-      taskPriority: [''],
-      taskTypeCategory: [''],
-    });
-  }
+    selectedType: number = 0;
+    selectedTypes: number = 0;
+    selectedStatus: number = 0;
 
-  private handleTaskTypeChange(): void {
-    this.taskForm.get('taskType')?.valueChanges.subscribe((value) => {
-      this.isSubTask = value === 'sub';
-      if (!this.isSubTask) {
-        this.taskForm.get('taskParentId')?.setValue(null);
-      }
-    });
-  }
-
-  private createTaskData(): Partial<Task> {
-    const form = this.taskForm;
-    const taskData: Partial<Task> = {
-      taskCreatedBy: localStorage.getItem('userGuidId') ?? '',
-      taskTitle: form.get('taskTitle')?.value,
-      taskDescription: form.get('taskDescription')?.value,
-      taskStatus: form.get('taskStatus')?.value,
-      taskType: form.get('taskType')?.value,
-      taskPriority: form.get('taskPriority')?.value,
-      // taskTypeCategory: form.get('taskTypeCategory')?.value,
-    };
-
-    if (this.isSubTask) {
-      const parentId = form.get('taskParentId')?.value;
-      if (parentId) taskData.taskParentId = Number(parentId);
+    constructor(private fb: FormBuilder, private taskService: TaskService) {
     }
 
-    return taskData;
-  }
-
-  onSubmit(): void {
-    if (this.taskForm.invalid) {
-      this.taskForm.markAllAsTouched();
-      return;
+    ngOnInit(): void {
+        this.initForm();
+        this.handleTaskTypeChange();
     }
 
-    // const taskData = this.createTaskData();
-    // this.taskService.createTask(taskData).subscribe({
-    //     next: (response) => {
-    //         console.log('Task created:', response);
-    //         this.resetForm();
-    //         window.location.reload(); // Replace this in production
-    //     },
-    //     error: (err) => {
-    //         console.error('Task creation failed:', err);
-    //     },
-    // });
-  }
+    private initForm(): void {
+        this.taskForm = this.fb.group({
+            taskCategory: 'parent', // Default for radio buttons
+            taskParentId: [null],
+            taskTitle: ['', Validators.required],
+            taskDescription: ['', Validators.required],
+            taskStatus: [0, Validators.required], // Default: 'Pending'
+            taskType: [0, Validators.required],       // Default: 'Bug'
+            taskPriority: [0, Validators.required] // Default: 'Medium'
+        });
+    }
 
-  resetForm(): void {
-    this.taskForm.reset({
-      taskType: 'parent',
-      taskParentId: null,
-      taskTitle: '',
-      taskDescription: '',
-      taskStatus: '',
-      taskPriority: '',
-      taskTypeCategory: '',
-    });
-    this.isSubTask = false;
-  }
+    private handleTaskTypeChange(): void {
+        this.taskForm.get('taskCategory')?.valueChanges.subscribe((value) => {
+            this.isSubTask = value === 'sub';
+            if (!this.isSubTask) {
+                this.taskForm.get('taskParentId')?.setValue(null);
+            }
+        });
+    }
+
+    private createTaskData(): Partial<Task> {
+        const form = this.taskForm;
+        const taskData: Partial<Task> = {
+            taskCreatedBy: localStorage.getItem('userGuidId') ?? '',
+            taskTitle: form.get('taskTitle')?.value,
+            taskDescription: form.get('taskDescription')?.value,
+            taskStatus: form.get('taskStatus')?.value,
+            taskType: form.get('taskType')?.value,
+            taskPriority: form.get('taskPriority')?.value
+            // taskTypeCategory: form.get('taskTypeCategory')?.value,
+        };
+
+        if (this.isSubTask) {
+            const parentId = form.get('taskParentId')?.value;
+            if (parentId) taskData.taskParentId = Number(parentId);
+        }
+
+        return taskData;
+    }
+
+    onSubmit(): void {
+        console.log(this.taskForm.value);
+        if (this.taskForm.invalid) {
+            this.taskForm.markAllAsTouched();
+            return;
+        }
+        this.resetForm();
+
+    }
+
+    resetForm(): void {
+        this.taskForm.reset({
+            taskCategory: 'parent',
+            taskParentId: null,
+            taskTitle: '',
+            taskDescription: '',
+            taskStatus: 0,
+            taskPriority: 0,
+            taskType: 0
+        });
+        this.isSubTask = false;
+    }
 }
