@@ -16,7 +16,10 @@ export class ApiService {
     get<T>(endpoint: string, params?: any): Observable<T> {
         const httpParams = this.createHttpParams(params);
         return this.http
-            .get<T>(`${this.baseUrl}${endpoint}`, { params: httpParams })
+            .get<T>(`${this.baseUrl}${endpoint}`, {
+                params: httpParams,
+                headers: this.getHeaders()
+            })
             .pipe(catchError(this.handleError));
     }
 

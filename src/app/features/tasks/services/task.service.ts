@@ -2,28 +2,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../../../core/services/api.service';
 import { Task } from '../models/task.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class TaskService {
     private readonly endpoint = 'tasks'; // API endpoint
 
-    constructor(private api: ApiService) {}
+    constructor(private api: ApiService) {
+    }
 
-    getTasks(params?: {
-        completed?: boolean;
-        priority?: 'low' | 'medium' | 'high';
-        dueBefore?: Date;
-        dueAfter?: Date;
-    }): Observable<Task[]> {
-        const queryParams: any = { ...params };
-        if (params?.dueBefore)
-            queryParams.dueBefore = params.dueBefore.toISOString();
-        if (params?.dueAfter)
-            queryParams.dueAfter = params.dueAfter.toISOString();
-
-        return this.api.get<Task[]>(this.endpoint, queryParams);
+    getTaskList(): Observable<Task[]> {
+        return this.api.get<Task[]>(environment.taskUrls.getAllTaskForUser);
     }
 
     getTask(id: string): Observable<Task> {
@@ -51,7 +42,7 @@ export class TaskService {
 
     setTaskCompletion(id: string, completed: boolean): Observable<Task> {
         return this.api.patch<Task>(`${this.endpoint}/${id}/status`, {
-            completed,
+            completed
         });
     }
 }

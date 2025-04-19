@@ -1,3 +1,27 @@
-<h1>Task List Works</h1>
-
-<a [routerLink]="['child']">Create Task</a>
+<div class="container mt-4">
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0 py-3">
+            <h5 class="mb-0">Task Management</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="ps-4">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col" class="text-end pe-4">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let task of taskList" app-task-card [task]="task"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

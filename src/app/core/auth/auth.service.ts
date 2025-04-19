@@ -25,6 +25,7 @@ export class AuthService {
                         this.isAuthenticated = true;
                         localStorage.setItem('auth_token', response.data.token.accessToken);
                         localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userId', response.data.userInfo.id);
                         this.router.navigate(['/home']);
                     } else {
                         console.error('Login failed');

@@ -13,5 +13,8 @@ export const environment = {
     },
     authUrls: {
         login: '/auth/login'
+    },
+    taskUrls: {
+        getAllTaskForUser: '/Task/GetAllTaskForUser'
     }
 };

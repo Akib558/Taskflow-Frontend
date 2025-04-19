@@ -1,0 +1,40 @@
+<th scope="row" class="ps-4">{{ task.id }}</th>
+<td>
+    <div class="fw-semibold">{{ task.taskTitle }}</div>
+    <small class="text-muted">{{ task.taskType }}</small>
+</td>
+<td class="text-truncate" style="max-width: 200px;">{{ task.taskDescription }}</td>
+<td>
+      <span class="badge rounded-pill"
+            [ngClass]="{
+              'bg-primary': task.taskStatus === 'Completed',
+              'bg-warning text-dark': task.taskStatus === 'In Progress',
+              'bg-secondary': task.taskStatus === 'Pending'
+            }">
+        {{ task.taskStatus }}
+      </span>
+</td>
+<td>
+      <span class="badge"
+            [ngClass]="{
+              'bg-danger': task.taskPriority === 'High',
+              'bg-warning text-dark': task.taskPriority === 'Medium',
+              'bg-success': task.taskPriority === 'Low'
+            }">
+        {{ task.taskPriority }}
+      </span>
+</td>
+<td>
+    <div>{{ task.taskDueDate }}</div>
+</td>
+<td class="text-end pe-4">
+    <div class="btn-group btn-group-sm" role="group">
+        <button type="button" class="btn btn-outline-primary" (click)="editTask(task)">
+            <i class="bi bi-pencil"></i>
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteTask(task.id)">
+            <i class="bi bi-trash"></i>
+        </button>
+    </div>
+</td>
+
