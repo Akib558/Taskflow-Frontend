@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormGroup, FormsModule,
@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
     styleUrl: './task-form.component.scss'
 })
 export class TaskFormComponent implements OnInit {
+    @Input() isUpdate = false;
     taskForm!: FormGroup;
     isSubTask: boolean = false;
     taskStatus = [
