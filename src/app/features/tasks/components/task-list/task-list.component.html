@@ -18,7 +18,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let task of taskList" app-task-card [task]="task"></tr>
+                    <tr *ngFor="let task of taskList" app-task-card [task]="task" (click)="goToTaskDetail()"></tr>
                     </tbody>
                 </table>
             </div>

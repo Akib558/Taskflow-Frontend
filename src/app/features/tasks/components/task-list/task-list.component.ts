@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { Task } from '../../models/task.model';
 import { ApiService } from '../../../../core/services/api.service';
 import { environment } from '../../../../../environments/environment';
@@ -16,7 +16,7 @@ import { TaskService } from '../../services/task.service';
 export class TaskListComponent implements OnInit {
     taskList: Task[] = [];
 
-    constructor(private taskService: TaskService) {
+    constructor(private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
     }
     
     ngOnInit(): void {
@@ -32,6 +32,10 @@ export class TaskListComponent implements OnInit {
                 }
             }
         });
+    }
+
+    goToTaskDetail(): void{
+        this.router.navigate(['taskdetails'], { relativeTo: this.route });
     }
 
     editTask(task: Task): void {

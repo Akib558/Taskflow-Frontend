@@ -15,15 +15,30 @@ export const TASK_ROUTES: Routes = [
         pathMatch: 'full',
         component: TaskFormComponent,
     },
+
+        {
+        path: 'taskform',
+        pathMatch: 'full',
+        component: TaskFormComponent
+    },
     {
+        path:'taskdetails',
+        pathMatch: 'full',  
+        component: TaskDetailComponent,
+        
+    },
+        {
         path: ':id',
+                pathMatch: 'full',  
         component: TaskDetailComponent,
     },
     {
         path: ':id/edit',
+                pathMatch: 'full',  
         component: TaskFormComponent,
         data: { mode: 'edit' },
     },
+
 ];
 
 export default {
